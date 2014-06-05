@@ -1,0 +1,15 @@
+<?php echo $this->render('header.phtml'); ?>
+<h1><?php echo $this->escape($this->title); ?></h1>
+<div>
+	<form action="<?php echo $this->baseUrl ?>/index/add" method="post">
+		<input type='text' name='nome' placeholder='Nome'>
+		<input type='text' name='sobrenome' placeholder='Sobrenome'>
+		<input type='text' name='username' placeholder='Username'>
+		<input type='e-mail' name='e-mail' placeholder='E-mail'>
+		<input type='password' name='senha' placeholder='Senha'>
+		<input type='password' name='confirmSenha' placeholder='Confirmar senha'>
+		<input type='submit' name='cadastrar' value='Cadastrar'>
+		<a href="<?php echo $this->baseUrl; ?>/index/"><p>Voltar</p></a>
+	</form>
+</div>
+<?php echo $this->render('footer.phtml'); ?>

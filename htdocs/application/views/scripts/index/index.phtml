@@ -1,0 +1,11 @@
+<?php echo $this->render('header.phtml'); ?>
+<h1><?php echo $this->escape($this->title); ?></h1>
+<div>
+	<form action="<?php echo $this->baseUrl ?>/index/login" method="post">
+		<input type='text' placeholder='Username ou E-mail'>
+		<input type='password' placeholder='Senha'>
+		<input type='submit' value='Logar'>
+		<a href="<?php echo $this->baseUrl; ?>/index/add"><p>Cadastre-se aqui</p></a>
+	</form>
+</div>
+<?php echo $this->render('footer.phtml'); ?>
