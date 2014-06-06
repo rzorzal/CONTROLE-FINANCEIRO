@@ -2,7 +2,7 @@
 	class Acesso extends Zend_Db_Table_Abstract
 	{
 		protected $_name = 'acesso';
-		protected $_primary = 'id';
+		protected $_primary = 'ID';
 	
 		function init(){
 	

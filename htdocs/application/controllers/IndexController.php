@@ -7,16 +7,33 @@ class IndexController extends Zend_Controller_Action
 		$this->initView();
 		$this->view->baseUrl = $this->_request->getBaseUrl();
         Zend_Loader::loadClass('Usuario');
+		Zend_Loader::loadClass('Acesso');
 	}
 	
 	function indexAction()
 	{
 		$this->view->title = "Controle de Finanças";
+		
+		$session = new Zend_Session_Namespace('login');
+		
+		if(isset($session->user)){
+			header('Location: /logado/');
+			return;
+		}
+		
 		$this->render();
 	}
 	function addAction()
 	{
 		$this->view->title = "Cadastrar novo Usuário";
+		
+		$session = new Zend_Session_Namespace('login');
+		
+		if(isset($session->user)){
+			header('Location: /logado/');
+			return;
+		}
+		
 		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
 			Zend_Loader::loadClass('Zend_Filter_StripTags');
 			$filter = new Zend_Filter_StripTags();
@@ -81,6 +98,57 @@ class IndexController extends Zend_Controller_Action
 	function loginAction()
 	{
 		$this->view->title = "Logando...";
+		
+		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+			Zend_Loader::loadClass('Zend_Filter_StripTags');
+			$filter = new Zend_Filter_StripTags();
+			$login = $filter->filter($this->_request->getPost('login'));
+			$senha = $filter->filter($this->_request->getPost('senha'));
+			
+			$usuario = new Usuario();
+			
+			$rowset = $usuario->fetchAll($usuario->select()->where('Senha = ?',$senha)->where('Username = ? OR Email = ?',$login));	
+			
+			
+			if( count($rowset) == 0){
+				echo ' <div id=\'alerta\'>
+						<p>Usuário não encontrado!</p>
+					  </div>';
+				return;
+			}
+			
+			$acesso = new Acesso();
+			$date = new Zend_Date();
+			
+			if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+				$ip = $_SERVER['HTTP_CLIENT_IP'];
+			} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+				$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			} else {
+				$ip = $_SERVER['REMOTE_ADDR'];
+			}
+			
+			$data = array(
+				'ID_Usuario' => $rowset->current()->ID,
+				'Data_Acesso' => $date->get(Zend_Date::DATE_MEDIUM),
+				'IP' => $ip
+			);
+			
+			//$acesso->insert($data);
+			
+			
+			unset($session);
+			$session = new Zend_Session_Namespace('login');
+			
+			$row = $rowset->current();
+			$session->user = $row->ID;
+			
+			header('Location: /logado/');
+			
+		}else{
+			header('Location: /index/');
+		}
+		
 		$this->render();
 	}
 }

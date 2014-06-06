@@ -5,13 +5,14 @@ set_include_path('.' . PATH_SEPARATOR . './library'
 . PATH_SEPARATOR . './application/models/'
 . PATH_SEPARATOR . get_include_path());
 include "Zend/Loader.php";
-Zend_Loader::loadClass('Zend_Controller_Front');
 
 Zend_Loader::loadClass('Zend_Controller_Front');
 Zend_Loader::loadClass('Zend_Config_Ini');
 Zend_Loader::loadClass('Zend_Registry');
 Zend_Loader::loadClass('Zend_Db');
 Zend_Loader::loadClass('Zend_Db_Table');
+Zend_Loader::loadClass('Zend_Date');
+Zend_Loader::loadClass('Zend_Session');
 // load configuration
 $config = new Zend_Config_Ini('./application/config.ini', 'general');
 $registry = Zend_Registry::getInstance();

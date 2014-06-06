@@ -1,0 +1,9 @@
+<?php echo $this->render('header.phtml'); ?>
+<?php echo $this->render('menu.phtml'); ?>
+<h1><?php echo $this->escape($this->title); ?></h1>
+<div id='form-delete'>
+	<form action="<?php echo $this->baseUrl ?>/logado/delete" method="post">
+		<p id='texto-delete'>Tem certeza que deseja deletar sua conta?</p> <input type='submit' value='Sim'>
+	</form>
+</div>
+<?php echo $this->render('footer.phtml'); ?>

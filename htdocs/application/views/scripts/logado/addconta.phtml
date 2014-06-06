@@ -1,0 +1,18 @@
+<?php echo $this->render('header.phtml'); ?>
+<?php echo $this->render('menu.phtml'); ?>
+<h1><?php echo $this->escape($this->title); ?></h1>
+<div id='pagar'><a href='<?php echo $this->baseUrl ?>/logado/addconta?T=1'>Contas a Pagar</a></div>
+<div id='pagar'><a href='<?php echo $this->baseUrl ?>/logado/addconta?T=2'>Contas a Receber</a></div>
+
+<?php
+if($_GET['T'] == 1 || $_GET['T'] == 2){
+				
+	echo "<div id='form-addconta'><form action=\"/logado/addconta?T\" method=\"post\">
+		<input type='text' name='valor' placeholder='valor'>
+		<input type='text' name='obs' placeholder='OBS'>
+		<input type='submit' name='bt' placeholder='Adicionar'>
+		<input type='hidden' name='T' value='".$_GET['T']."'>
+		</form></div>";	
+}
+?>
+<?php echo $this->render('footer.phtml'); ?>
