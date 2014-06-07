@@ -132,7 +132,7 @@ class IndexController extends Zend_Controller_Action
 				'IP' => $ip
 			);
 			
-			//$acesso->insert($data);
+			$acesso->insert($data);
 			
 			
 			unset($session);
