@@ -1,11 +1,13 @@
 <?php echo $this->render('header.phtml'); ?>
 <?php echo $this->render('menu.phtml'); ?>
-<h1><?php echo $this->escape($this->title); ?></h1>
 
-<form action="<?php echo $this->baseUrl ?>/logado/edit" method="post">
-	<input type='text' name='nome' placeholder='Nome'>
-	<input type='text' name='sobrenome' placeholder='Sobrenome'>
-	<input type='submit' name='cadastrar' value='Cadastrar'>
-</form>
+<div class="container">
 
+	<form action="<?php echo $this->baseUrl ?>/logado/edit" method="post" class="form-signin" role="form">
+		<h1><?php echo $this->escape($this->title); ?></h1>
+		<input type='text' class="form-control" name='nome' placeholder='Nome'>
+		<input type='text' class="form-control" name='sobrenome' placeholder='Sobrenome'>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Atualizar</button>
+	</form>
+</div>
 <?php echo $this->render('footer.phtml'); ?>

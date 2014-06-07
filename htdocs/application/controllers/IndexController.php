@@ -45,16 +45,16 @@ class IndexController extends Zend_Controller_Action
 			$sobrenome = $filter->filter($this->_request->getPost('sobrenome'));
 			
 			if($senha == '' || $username == '' || $email == ''){
-				echo ' <div id=\'alerta\'>
+				echo '<center><div id=\'alerta\' class="alert alert-danger">
 						<p>Os campos Senha, Username e E-mail não podem ser nulos</p>
-					  </div>';
+					  </div></center>';
 				return;
 			}
 
 			if($confirmSenha !== $senha){
-				echo ' <div id=\'alerta\'>
+				echo '<center><div id=\'alerta\' class="alert alert-danger">
 						<p>As senhas não conferem</p>
-					  </div>';
+					  </div></center>';
 				return;
 			}
 
@@ -63,18 +63,18 @@ class IndexController extends Zend_Controller_Action
 			$rowset = $usuario->fetchAll($usuario->select()->where('Username = ?',$username));
 			
 			if( count($rowset) > 0){
-				echo ' <div id=\'alerta\'>
+				echo '<center><div id=\'alerta\' class="alert alert-danger">
 						<p>Username já existe!</p>
-					  </div>';
+					  </div></center>';
 				return;
 			}
 			
 			$rowset = $usuario->fetchAll($usuario->select()->where('Email = ?',$email));
 			
 			if( count($rowset) > 0){
-				echo ' <div id=\'alerta\'>
+				echo '<center><div id=\'alerta\' class="alert alert-danger">
 						<p>E-mail já existe!</p>
-					  </div>';
+					  </div></center>';
 				return;
 			}
 			
@@ -88,9 +88,9 @@ class IndexController extends Zend_Controller_Action
 			
 			$usuario->insert($data);
 			
-			echo ' <div id=\'alerta\'>
+			echo ' <center><div id=\'alerta\' class="alert alert-danger">
 						<p>Cadastrado com sucesso!</p>
-					  </div>';
+					  </div></center>';
 			
 		}
 		$this->render();
@@ -111,9 +111,7 @@ class IndexController extends Zend_Controller_Action
 			
 			
 			if( count($rowset) == 0){
-				echo ' <div id=\'alerta\'>
-						<p>Usuário não encontrado!</p>
-					  </div>';
+				$this->view->title = "Usuário não encontrado";
 				return;
 			}
 			

@@ -1,11 +1,13 @@
 <?php echo $this->render('header.phtml'); ?>
-<h1><?php echo $this->escape($this->title); ?></h1>
 <div>
-	<form action="<?php echo $this->baseUrl ?>/index/login" method="post">
-		<input type='text' name='login' placeholder='Username ou E-mail'>
-		<input type='password' name='senha' placeholder='Senha'>
-		<input type='submit' value='Logar'>
-		<a href="<?php echo $this->baseUrl; ?>/index/add"><p>Cadastre-se aqui</p></a>
-	</form>
+	<div class="container">
+		<form action="<?php echo $this->baseUrl ?>/index/login" method="post" class="form-signin" role="form">
+			<h2 class="form-signin-heading"><?php echo $this->escape($this->title); ?></h2>
+			<input type='text' class="form-control" name='login' placeholder='Username ou E-mail' required autofocus>
+			<input type='password' class="form-control" name='senha' placeholder='Senha' required>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+			<a href="<?php echo $this->baseUrl; ?>/index/add"><p>Cadastre-se aqui</p></a>
+		</form>
+	</div>
 </div>
 <?php echo $this->render('footer.phtml'); ?>

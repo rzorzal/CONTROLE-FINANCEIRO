@@ -1,18 +1,26 @@
 <?php echo $this->render('header.phtml'); ?>
 <?php echo $this->render('menu.phtml'); ?>
-<h1><?php echo $this->escape($this->title); ?></h1>
-<div id='pagar'><a href='<?php echo $this->baseUrl ?>/logado/addconta?T=1'>Contas a Pagar</a></div>
-<div id='pagar'><a href='<?php echo $this->baseUrl ?>/logado/addconta?T=2'>Contas a Receber</a></div>
-
-<?php
-if($_GET['T'] == 1 || $_GET['T'] == 2){
-				
-	echo "<div id='form-addconta'><form action=\"/logado/addconta?T\" method=\"post\">
-		<input type='text' name='valor' placeholder='valor'>
-		<input type='text' name='obs' placeholder='OBS'>
-		<input type='submit' name='bt' placeholder='Adicionar'>
-		<input type='hidden' name='T' value='".$_GET['T']."'>
-		</form></div>";	
-}
-?>
+	<div class="container">
+	<div class="form-signin">
+			<center><h1><?php echo $this->escape($this->title); 
+			if($_GET['T'] == 1){ 
+				echo ' a Pagar!';
+			}elseif($_GET['T'] == 2){
+				echo ' a Receber!';
+			}		?></h1><center>
+			<a href='<?php echo $this->baseUrl ?>/logado/addconta?T=1'><button class="btn btn-lg btn-primary btn-block"><div id='pagar'>Contas a Pagar</div></button></a>
+			<a href='<?php echo $this->baseUrl ?>/logado/addconta?T=2'><button class="btn btn-lg btn-primary btn-block"><div id='pagar'>Contas a Receber</div></button></a>
+	</div>
+		<?php
+		if($_GET['T'] == 1 || $_GET['T'] == 2){
+						
+			echo "<div id='form-addconta'><form action=\"/logado/addconta?T\" method=\"post\" class=\"form-signin\" role=\"form\">
+				<input type='text'  class=\"form-control\" name='valor' placeholder='valor' required autofocus>
+				<input type='text' class=\"form-control\" name='obs' placeholder='OBS'required>
+				<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Adicionar</button>
+				<input type='hidden' name='T' value='".$_GET['T']."'>
+				</form></div>";	
+		}
+		?>
+	</div>
 <?php echo $this->render('footer.phtml'); ?>

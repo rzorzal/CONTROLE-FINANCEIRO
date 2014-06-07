@@ -1,4 +1,56 @@
 <?php echo $this->render('header.phtml'); ?>
 <?php echo $this->render('menu.phtml'); ?>
-<h1><?php echo $this->escape($this->title); ?></h1>
+
+<div class="container">
+	<div class="form-signin">
+		<center><h1><?php echo $this->escape($this->title); 
+		if($_GET['T'] == 1){ 
+			echo ' a Pagar!';
+		}elseif($_GET['T'] == 2){
+			echo ' a Receber!';
+		}		?></h1><center>
+		<a href='<?php echo $this->baseUrl ?>/logado/editconta?T=1'><button class="btn btn-lg btn-primary btn-block"><div id='pagar'>Contas a Pagar</div></button></a>
+		<a href='<?php echo $this->baseUrl ?>/logado/editconta?T=2'><button class="btn btn-lg btn-primary btn-block"><div id='pagar'>Contas a Receber</div></button></a>
+	</div>
+	<h2 class="sub-header">Tabela de Contas</h2>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+                <tr>
+                  <th>#</th>
+                  <th>Valor</th>
+                  <th>OBS</th>
+                  <th>Data Criação</th>
+                  <th>Status</th>
+				  <th>Pagar!</th>
+               </tr>
+             </thead>
+			 <tbody>
+				<?php
+					if($_GET['T'] == 1){
+						$contas = $this->conta;
+						foreach($contas as $conta){
+							echo '<tr><form action="/logado/editconta?T=1" method="post"><input type="hidden" name="id" value="'.$conta->ID.'"><td>'.$conta->ID . '</td><td>'. $conta->Valor . '</td><td>' . $conta->OBS . '</td><td>' . $conta->Data_Criacao .'</td><td>' . $conta->Status .'</td><td>';
+							if($conta->Status == 'Pendente'){
+								echo'<button class="btn btn-xs btn-warning" type="submit">Pagar</button>';
+							}
+							
+							echo'</td></form></tr>';
+						}
+					}elseif($_GET['T'] == 2){
+						$contas = $this->conta;
+						foreach($contas as $conta){
+							echo '<tr><form action="/logado/editconta?T=1" method="post"><input type="hidden" name="id" value="'.$conta->ID.'"><td>'.$conta->ID . '</td><td>'. $conta->Valor . '</td><td>' . $conta->OBS . '</td><td>' . $conta->Data_Criacao .'</td><td>' . $conta->Status .'</td><td>';
+							if($conta->Status == 'Pendente'){
+								echo'<button class="btn btn-xs btn-warning" type="submit">Receber</button>';
+							}
+							
+							echo'</td></form></tr>';
+						};
+					}
+				?>
+			</tbody>
+		</table>
+	</div>
+</div>
 <?php echo $this->render('footer.phtml'); ?>

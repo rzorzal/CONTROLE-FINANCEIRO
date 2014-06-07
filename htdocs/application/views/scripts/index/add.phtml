@@ -1,14 +1,15 @@
 <?php echo $this->render('header.phtml'); ?>
-<h1><?php echo $this->escape($this->title); ?></h1>
-<div>
-	<form action="<?php echo $this->baseUrl ?>/index/add" method="post">
-		<input type='text' name='nome' placeholder='Nome'>
-		<input type='text' name='sobrenome' placeholder='Sobrenome'>
-		<input type='text' name='username' placeholder='Username'>
-		<input type='e-mail' name='e-mail' placeholder='E-mail'>
-		<input type='password' name='senha' placeholder='Senha'>
-		<input type='password' name='confirmSenha' placeholder='Confirmar senha'>
-		<input type='submit' name='cadastrar' value='Cadastrar'>
+
+<div class="container">
+	<form action="<?php echo $this->baseUrl ?>/index/add" method="post" class="form-signin" role="form">
+		<h2 class="form-signin-heading"><?php echo $this->escape($this->title); ?></h2>
+		<input type='text' class="form-control" name='nome' placeholder='Nome' required autofocus>
+		<input type='text' class="form-control" name='sobrenome' placeholder='Sobrenome'>
+		<input type='text' class="form-control" name='username' placeholder='Username' required >
+		<input type='e-mail' class="form-control" name='e-mail' placeholder='E-mail' required >
+		<input type='password' class="form-control" name='senha' placeholder='Senha' required >
+		<input type='password' class="form-control" name='confirmSenha' placeholder='Confirmar senha' required >
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
 		<a href="<?php echo $this->baseUrl; ?>/index/"><p>Voltar</p></a>
 	</form>
 </div>

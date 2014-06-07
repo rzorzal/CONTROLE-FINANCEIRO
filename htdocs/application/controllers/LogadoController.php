@@ -76,7 +76,7 @@ class LogadoController extends Zend_Controller_Action{
 				$where = $usuario->getAdapter()->quoteInto('ID = ?', $session->user);
 				$usuario->update($data, $where);
 				
-				echo '<div id="alerta">Alterado com sucesso</div>';
+				echo '<div id="alerta" class="alert alert-success">Alterado com sucesso</div>';
 			}
 			
 			$this->render();
@@ -129,7 +129,42 @@ class LogadoController extends Zend_Controller_Action{
 		$session = new Zend_Session_Namespace('login');
 
 		if(isset($session->user)){
-			$this->view->title = "Editar Conta";
+			$this->view->title = "Editar Finanças";
+			$date = new Zend_Date();
+			if($_GET['T'] == 1){
+				$pagar = new ContaPagar();
+				if(strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
+					Zend_Loader::loadClass('Zend_Filter_StripTags');
+					$filter = new Zend_Filter_StripTags();
+					$id = $filter->filter($this->_request->getPost('id'));
+					
+					$data = array(
+						'Status' => 'Pago',
+						'Data_Pago' => $date->get(Zend_Date::DATE_MEDIUM)
+					);
+				
+					$where = $pagar->getAdapter()->quoteInto('ID = ?', $id);
+					$pagar->update($data, $where);
+				}
+				$this->view->conta = $pagar->fetchAll($pagar->select()->where('ID_Usuario = ?', $session->user)->order('Status desc'));
+				
+			}elseif($_GET['T'] == 2){
+				$receber = new ContaReceber();
+				if(strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
+					Zend_Loader::loadClass('Zend_Filter_StripTags');
+					$filter = new Zend_Filter_StripTags();
+					$id = $filter->filter($this->_request->getPost('id'));
+					
+					$data = array(
+						'Status' => 'Recebido',
+						'Data_Recebido' => $date->get(Zend_Date::DATE_MEDIUM)
+					);
+				
+					$where = $receber->getAdapter()->quoteInto('ID = ?', $id);
+					$receber->update($data, $where);
+				}
+				$this->view->conta = $receber->fetchAll($receber->select()->where('ID_Usuario = ?', $session->user)->order('Status asc'));
+			}
 			$this->render();
 		}else{
 			header('Location: /index/');
@@ -140,7 +175,42 @@ class LogadoController extends Zend_Controller_Action{
 		$session = new Zend_Session_Namespace('login');
 
 		if(isset($session->user)){
-			$this->view->title = "Deletar Conta";
+			$this->view->title = "Deletar Finanças";
+			$date = new Zend_Date();
+			if($_GET['T'] == 1){
+				$pagar = new ContaPagar();
+				if(strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
+					Zend_Loader::loadClass('Zend_Filter_StripTags');
+					$filter = new Zend_Filter_StripTags();
+					$id = $filter->filter($this->_request->getPost('id'));
+					
+					$data = array(
+						'Status' => 'Pago',
+						'Data_Pago' => $date->get(Zend_Date::DATE_MEDIUM)
+					);
+				
+					$where = $pagar->getAdapter()->quoteInto('ID = ?', $id);
+					$pagar->delete($where);
+				}
+				$this->view->conta = $pagar->fetchAll($pagar->select()->where('ID_Usuario = ?', $session->user)->order('Status desc'));
+				
+			}elseif($_GET['T'] == 2){
+				$receber = new ContaReceber();
+				if(strtolower($_SERVER['REQUEST_METHOD']) == 'post'){
+					Zend_Loader::loadClass('Zend_Filter_StripTags');
+					$filter = new Zend_Filter_StripTags();
+					$id = $filter->filter($this->_request->getPost('id'));
+					
+					$data = array(
+						'Status' => 'Recebido',
+						'Data_Recebido' => $date->get(Zend_Date::DATE_MEDIUM)
+					);
+				
+					$where = $receber->getAdapter()->quoteInto('ID = ?', $id);
+					$receber->delete($where);
+				}
+				$this->view->conta = $receber->fetchAll($receber->select()->where('ID_Usuario = ?', $session->user)->order('Status desc'));
+			}
 			$this->render();
 		}else{
 			header('Location: /index/');
@@ -152,6 +222,16 @@ class LogadoController extends Zend_Controller_Action{
 
 		if(isset($session->user)){
 			$this->view->title = "Dashboard";
+			
+			$pagar = new ContaPagar();
+			$receber = new ContaReceber();
+			
+			$this->view->pagarTotal = $pagar->fetchAll($pagar->select()->where('ID_Usuario = ?', $session->user)->order('Data_Criacao desc'));
+			$this->view->pagarPendente = $pagar->fetchAll($pagar->select()->where('ID_Usuario = ?', $session->user)->where('Status = \'Pendente\'')->order('Data_Criacao asc'));
+			
+			$this->view->receberTotal = $receber->fetchAll($receber->select()->where('ID_Usuario = ?', $session->user)->order('Data_Criacao desc'));
+			$this->view->receberPendente = $receber->fetchAll($receber->select()->where('ID_Usuario = ?', $session->user)->where('Status = \'Pendente\'')->order('Data_Criacao asc'));
+			
 			$this->render();
 		}else{
 			header('Location: /index/');

@@ -1,26 +1,26 @@
-<div id='menu'>
-	<div id='menu-home'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/'>Home</a>
-	</div>
-	<div id='menu-editar'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/edit'>Editar Conta</a>
-	</div>
-	<div id='menu-deletar'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/delete'>Deletar Conta</a>
-	</div>
-	<div id='menu-add-conta'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/addconta?T'>Adicionar Finanças</a>
-	</div>
-	<div id='menu-edit-conta'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/editconta'>Editar Finanças</a>
-	</div>
-	<div id='menu-del-conta'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/delconta'>Deletar Finanças</a>
-	</div>
-	<div id='menu-dashboard'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/dashboard'>Dashboard</a>
-	</div>
-	<div id='menu-logout'>
-		<a href='<?php echo $this->baseUrl; ?>/logado/logout'>Logout</a>
-	</div>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<div class="navbar-brand" href="#">Controle de Finanças</div>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href='<?php echo $this->baseUrl; ?>/logado/'>Home</a></li>
+            <li><a href='<?php echo $this->baseUrl; ?>/logado/edit'>Editar Conta</a></li>
+            <li><a href='<?php echo $this->baseUrl; ?>/logado/delete'>Deletar Conta</a></li>
+			<li><a href='<?php echo $this->baseUrl; ?>/logado/addconta?T'>Adicionar Finanças</a></li>
+			<li><a href='<?php echo $this->baseUrl; ?>/logado/editconta?T'>Editar Finanças</a></li>
+			<li><a href='<?php echo $this->baseUrl; ?>/logado/delconta?T'>Deletar Finanças</a></li>
+			<li><a href='<?php echo $this->baseUrl; ?>/logado/dashboard'>Dashboard</a></li>
+			<li><a href='<?php echo $this->baseUrl; ?>/logado/logout'>Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
 </div>

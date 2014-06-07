@@ -1,4 +1,60 @@
 <?php echo $this->render('header.phtml'); ?>
 <?php echo $this->render('menu.phtml'); ?>
-<h1><?php echo $this->escape($this->title); ?></h1>
+
+<div class='container'>
+	<div class="form-signin">
+		<h1><?php echo $this->escape($this->title); ?></h1>
+	</div>
+	
+	<h2 class="sub-header">Tabela de Contas a Pagar</h2>
+	<h5 class="sub-header"><?php echo 'Total: ' . count($this->pagarTotal) . ' <br> Pendentes: ' . count($this->pagarPendente) . '<br>Pago: '. (count($this->pagarTotal) - count($this->pagarPendente));?></h5>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+                <tr>
+                  <th>#</th>
+                  <th>Valor</th>
+                  <th>OBS</th>
+                  <th>Data Criação</th>
+                  <th>Status</th>
+               </tr>
+             </thead>
+			 <tbody>
+				<?php
+					$contas = $this->pagarTotal;
+					foreach($contas as $conta){
+						echo '<tr><form action="/logado/editconta?T=1" method="post"><input type="hidden" name="id" value="'.$conta->ID.'"><td>'.$conta->ID . '</td><td>'. $conta->Valor . '</td><td>' . $conta->OBS . '</td><td>' . $conta->Data_Criacao .'</td><td>' . $conta->Status .'</td><td>';
+						echo'</td></form></tr>';
+					}
+				?>
+			</tbody>
+		</table>
+	</div>
+	
+	<h2 class="sub-header">Tabela de Contas a Receber</h2>
+	<h5 class="sub-header"><?php echo 'Total: ' . count($this->receberTotal) . ' <br> Pendentes: ' . count($this->receberPendente) . '<br>Recebido: '. (count($this->receberTotal) - count($this->receberPendente));?></h5>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+                <tr>
+                  <th>#</th>
+                  <th>Valor</th>
+                  <th>OBS</th>
+                  <th>Data Criação</th>
+                  <th>Status</th>
+               </tr>
+             </thead>
+			 <tbody>
+				<?php
+					$contas = $this->receberTotal;
+					foreach($contas as $conta){
+						echo '<tr><form action="/logado/editconta?T=1" method="post"><input type="hidden" name="id" value="'.$conta->ID.'"><td>'.$conta->ID . '</td><td>'. $conta->Valor . '</td><td>' . $conta->OBS . '</td><td>' . $conta->Data_Criacao .'</td><td>' . $conta->Status .'</td><td>';
+						echo'</td></form></tr>';
+					}
+				?>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
 <?php echo $this->render('footer.phtml'); ?>
