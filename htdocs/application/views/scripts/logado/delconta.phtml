@@ -31,7 +31,7 @@
 					if($_GET['T'] == 1 || $_GET['T'] == 2){
 						$contas = $this->conta;
 						foreach($contas as $conta){
-							echo '<tr><form action="/logado/editconta?T=1" method="post"><input type="hidden" name="id" value="'.$conta->ID.'"><td>'.$conta->ID . '</td><td>'. $conta->Valor . '</td><td>' . $conta->OBS . '</td><td>' . $conta->Data_Criacao .'</td><td>' . $conta->Status .'</td><td>';
+							echo '<tr><form action="/logado/delconta?T=' . $_GET['T'] . '" method="post"><input type="hidden" name="id" value="'.$conta->ID.'"><td>'.$conta->ID . '</td><td>'. $conta->Valor . '</td><td>' . $conta->OBS . '</td><td>' . $conta->Data_Criacao .'</td><td>' . $conta->Status .'</td><td>';
 							echo'<button class="btn btn-xs btn-danger" type="submit">Deletar!</button>';
 							
 							echo'</td></form></tr>';
